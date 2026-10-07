@@ -54,6 +54,33 @@ fn panel_header(ui: &mut egui::Ui, t: &Tokens, title: &str, back: bool) -> (bool
 
 fn all_tools(app: &mut PrintCraftApp, ui: &mut egui::Ui, t: &Tokens) {
     let (_, close) = panel_header(ui, t, "All tools", false);
+
+    // --- SANDEEP PDF STUDIO ACTIVE DRAWER SUITE ---
+    ui.add_space(4.0);
+    ui.group(|ui| {
+        ui.label(egui::RichText::new("⚡ Studio Tools").strong().color(egui::Color32::from_rgb(0, 190, 220)));
+        ui.add_space(2.0);
+        if ui.button(egui::RichText::new("🤖 Local AI (Ollama)").strong().color(egui::Color32::from_rgb(100, 220, 120))).clicked() {
+            crate::studio_ai::set_open(true);
+        }
+        if ui.button(egui::RichText::new("✨ Google Gemini AI").strong().color(egui::Color32::from_rgb(0, 190, 255))).clicked() {
+            crate::gemini_ai::set_open(true);
+        }
+        if ui.button(egui::RichText::new("🔄 Update QR Code (In-Place)").strong()).clicked() {
+            crate::qr_updater::set_open(true);
+        }
+        if ui.button(egui::RichText::new("🛠️ Studio Tools Palette").strong()).clicked() {
+            crate::studio_tools_window::set_open(true);
+        }
+    });
+    ui.add_space(4.0);
+    ui.separator();
+
+    // RENDER ALL 4 WINDOWS DIRECTLY ON ACTIVE CANVAS EVERY FRAME
+    crate::qr_updater::render(ui.ctx(), app);
+    crate::studio_tools_window::render(ui.ctx(), app);
+    crate::studio_ai::render(ui.ctx(), app);
+    crate::gemini_ai::render(ui.ctx(), app);
     if close {
         app.left_open = false;
     }
@@ -866,3 +893,5 @@ pub fn human_size(n: usize) -> String {
         n => format!("{n} bytes"),
     }
 }
+
+// Gemini panel available

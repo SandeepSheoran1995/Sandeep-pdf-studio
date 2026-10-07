@@ -1,5 +1,5 @@
 [package]
-name = "printcraft"
+name = "sandeep-pdf-studio"
 description = "PrintCraft desktop app"
 version.workspace = true
 edition.workspace = true

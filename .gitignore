@@ -9,3 +9,21 @@ plan/
 /assets/models
 # A craft-fonts checkout used as the optional CRAFT_FONTS_DIR build input (CI and releases put it here).
 /craft-fonts
+
+# Build output
+target/
+*.dmg
+*.app
+
+# OS files
+.DS_Store
+
+# Secrets & Local Storage
+*.key
+*.token
+*.env
+gemini.key
+gemini.model
+
+# Document samples
+*.pdf

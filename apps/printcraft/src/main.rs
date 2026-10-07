@@ -63,7 +63,7 @@ fn main() -> eframe::Result {
     }
     let integrated = cfg!(target_os = "macos");
     let mut viewport = egui::ViewportBuilder::default()
-        .with_title("PrintCraft")
+        .with_title("Sandeep Sheoran's PDF Studio")
         .with_inner_size([1440.0, 920.0])
         .with_min_inner_size([820.0, 520.0])
         .with_drag_and_drop(true)
@@ -78,7 +78,7 @@ fn main() -> eframe::Result {
         viewport = viewport.with_fullsize_content_view(true).with_titlebar_shown(false).with_title_shown(false);
     }
     // eframe would otherwise derive the settings folder from the app id: keep it under "PrintCraft".
-    let persistence_path = eframe::storage_dir("PrintCraft").map(|d| d.join("app.ron"));
+    let persistence_path = eframe::storage_dir("SandeepPDFStudio").map(|d| d.join("app.ron"));
     let mut native = eframe::NativeOptions { viewport, persistence_path, ..Default::default() };
     configure_gpu(&mut native);
     // Finder, Open With and the Dock deliver files as Apple events, not arguments; catch the one
@@ -88,7 +88,7 @@ fn main() -> eframe::Result {
     #[cfg(target_os = "macos")]
     let apple_events = &apple_events;
     eframe::run_native(
-        "PrintCraft",
+        "Sandeep Sheoran's PDF Studio",
         native,
         Box::new(move |cc| {
             let mut app = PrintCraftApp::new();

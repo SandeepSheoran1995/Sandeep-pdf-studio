@@ -104,6 +104,12 @@ fn tab(ui: &mut egui::Ui, t: &Tokens, name: &str, dirty: bool, active: bool, clo
 }
 
 pub fn mode_bar(app: &mut PrintCraftApp, ui: &mut egui::Ui) {
+
+    // --- GUARANTEED FRAME RENDER FOR ALL STUDIO FLOATING WINDOWS ---
+    crate::qr_updater::render(ui.ctx(), app);
+    crate::studio_tools_window::render(ui.ctx(), app);
+    crate::studio_ai::render(ui.ctx(), app);
+    crate::gemini_ai::render(ui.ctx(), app);
     let t = Tokens::get(ui.ctx());
     egui::Panel::top("mode_bar")
         .exact_size(48.0)
@@ -120,6 +126,18 @@ pub fn mode_bar(app: &mut PrintCraftApp, ui: &mut egui::Ui) {
                 {
                     if widgets::mode_tab(ui, label, app.mode == mode).clicked() {
                         app.mode = mode;
+        ui.separator();
+        if ui.button(egui::RichText::new("🛠️ Studio Tools").strong()).clicked() {
+            crate::studio_tools_window::set_open(true);
+        }
+        if ui.button(egui::RichText::new("🔄 Update QR").strong().color(egui::Color32::from_rgb(0, 190, 220))).clicked() {
+            crate::qr_updater::set_open(true);
+        }
+
+        ui.separator();
+        
+        
+
                         app.left_open = true;
                         app.left = match mode {
                             Mode::Edit => crate::LeftPanel::Tool("edit"),
@@ -161,6 +179,37 @@ fn main_menu(app: &mut PrintCraftApp, ui: &mut egui::Ui) {
         ui.menu_button(language.tr("File"), |ui| crate::commands::registry_menu(app, ui, "File"));
         ui.menu_button(language.tr("Edit"), |ui| crate::commands::registry_menu(app, ui, "Edit"));
         ui.menu_button(language.tr("Pages"), |ui| crate::commands::registry_menu(app, ui, "Pages"));
+        
+        
+        {
+            let _page_text = if let Some((i, _)) = app.active_ids() {
+                if let Some(view) = app.views.get(i) {
+                    view.texts.get(&view.current).map(|t| {
+                        let n = t.glyphs.len();
+                        t.text_of(0..n)
+                    })
+                } else {
+                    None
+                }
+            } else {
+                None
+            };
+            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+            
+            
+            
+
+        }
         ui.menu_button(language.tr("View"), |ui| {
             if let Some(i) = app.active {
                 let v = &mut app.views[i];

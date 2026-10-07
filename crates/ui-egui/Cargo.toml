@@ -9,6 +9,9 @@ license.workspace = true
 workspace = true
 
 [dependencies]
+rqrr = "0.8"
+qrcode = "0.14"
+image = { version = "0.25", default-features = false, features = ["png"] }
 printcraft-fonts = { workspace = true }
 printcraft-engine = { workspace = true }
 printcraft-render = { workspace = true }

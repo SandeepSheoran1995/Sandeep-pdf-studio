@@ -7,6 +7,12 @@
 
 #![deny(clippy::unwrap_used, clippy::expect_used, clippy::panic, clippy::unimplemented, clippy::todo, clippy::unreachable)]
 
+pub mod qr_updater;
+pub mod studio_tools_window;
+pub mod studio_ai;
+pub mod gemini_ai;
+
+
 mod a11y_ui;
 mod actions_ui;
 pub mod canvas;
